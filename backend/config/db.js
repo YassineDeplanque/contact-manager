@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
-dotenv.config();
 import mysql from 'mysql2/promise';
 
+dotenv.config();
 
 export const connection = async () => {
     const connection = await mysql.createConnection({
@@ -19,5 +19,7 @@ export const connection = async () => {
     } catch (error) {
         console.log(error);
     }
+
+    return connection;
 }
     
