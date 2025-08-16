@@ -21,6 +21,16 @@ function ContactList() {
       })
   }, [])
 
+  const handleDelete = (id) => {
+    axios.delete(`http://localhost:3000/contacts/${id}`)
+    .then((res) => {
+        setContacts(contacts.filter(c => c.id !== id))
+    })
+    .catch((err) => {
+        setError(err.message)
+    })
+  }
+
   if (loading) return <p>Loading...</p>
   if (error) return <p style={{ color: 'red' }}>Erreur : {error}</p>
 
@@ -31,6 +41,7 @@ function ContactList() {
         {contacts.map((c) => (
           <li key={c.id}>
             {c.nom} {c.prenom} - {c.email}
+            <button onClick={() => handleDelete(c.id)}>Delete</button>
           </li>
         ))}
       </ul>

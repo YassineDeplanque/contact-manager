@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 
-function AddContact() {
+function AddContact({ onAdd }) {
 
     const [familyName, setFamilyName] = useState('');
     const [name, setName] = useState('');
@@ -15,6 +15,7 @@ function AddContact() {
             setFamilyName('');
             setName('');
             setEmail('');
+            onAdd();
           })
           .catch ((err) => {
             setError(err.message)
