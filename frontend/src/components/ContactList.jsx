@@ -5,7 +5,7 @@ import axios from 'axios'
 function ContactList() {
   const [contacts, setContacts] = useState([])
   const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
+  const [error, setError] = useState('')
 
   useEffect(() => {
     // appel API
@@ -21,12 +21,12 @@ function ContactList() {
       })
   }, [])
 
-  if (loading) return <p>Chargement...</p>
+  if (loading) return <p>Loading...</p>
   if (error) return <p style={{ color: 'red' }}>Erreur : {error}</p>
 
   return (
     <div>
-      <h2>Liste des contacts</h2>
+      <h2>Contacts</h2>
       <ul>
         {contacts.map((c) => (
           <li key={c.id}>
