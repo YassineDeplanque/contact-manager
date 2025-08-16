@@ -1,22 +1,21 @@
-// components/ContactList.jsx
 import { useEffect, useState } from 'react'
 import axios from 'axios'
+import './ContactList.css'
 
 function ContactList() {
   const [contacts, setContacts] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
-  const [editingId, setEditingId] = useState(null); // id du contact en train d'être édité
+  const [editingId, setEditingId] = useState(null);
   const [newNom, setNewNom] = useState('');
   const [newPrenom, setNewPrenom] = useState('');
   const [newEmail, setNewEmail] = useState('');
 
 
   useEffect(() => {
-    // appel API
     axios.get('http://localhost:3000/contacts')
       .then((res) => {
-        setContacts(res.data)   // res.data doit être un tableau [{id, nom, prenom, email}]
+        setContacts(res.data)
       })
       .catch((err) => {
         setError(err.message)
@@ -36,7 +35,6 @@ function ContactList() {
     })
   }
 
-// début édition
   const startEditing = (contact) => {
     setEditingId(contact.id);
     setNewNom(contact.nom);
@@ -44,7 +42,6 @@ function ContactList() {
     setNewEmail(contact.email);
   };
 
-  // soumission édition
   const handleEdit = (id) => {
     axios.put(`http://localhost:3000/contacts/${id}`, {
       nom: newNom,
@@ -55,7 +52,7 @@ function ContactList() {
       setContacts(contacts.map(c => 
         c.id === id ? { ...c, nom: newNom, prenom: newPrenom, email: newEmail } : c
       ));
-      setEditingId(null); // on ferme le formulaire d'édition
+      setEditingId(null);
     })
     .catch(err => console.error(err));
   };

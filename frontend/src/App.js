@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import ContactList from "./components/ContactList";
 import AddContact from "./components/AddContact";
+import './App.css'
 
 function App() {
   const [contacts, setContacts] = useState([]);
