@@ -1,6 +1,6 @@
 // routes/contactRoutes.js
 import express from 'express';
-import { addContact, getContact, deleteContact } from '../controllers/contactController.js';
+import { addContact, getContact, deleteContact, editContact } from '../controllers/contactController.js';
 
 const router = express.Router();
 
@@ -8,5 +8,6 @@ const router = express.Router();
 router.post('/', addContact);
 router.get('/', getContact);
 router.delete('/:id', deleteContact);
+router.put('/:id', editContact);
 
 export default router;

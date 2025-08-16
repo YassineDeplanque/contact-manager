@@ -57,3 +57,28 @@ export const deleteContact = async (req, res) => {
         res.status(500).json({ success: false, message: "Erreur serveur" });
     }
 };
+
+// UPDATE contact
+export const editContact = async (req, res) => {
+    const id = req.params.id;
+    
+    const { nom, prenom, email } = req.body;
+
+    // Vérification des champs obligatoires
+    if (!nom || !prenom || !email) {
+        return res.status(400).json({ success: false, message: "Tous les champs sont requis" });
+    }
+    try {
+        const db = await connection();
+        const query = 'UPDATE contacts SET nom = ?, prenom = ?, email = ? WHERE id = ?';
+        const [result] = await db.execute(query, [nom, prenom, email, id]);
+
+        res.status(200).json({
+            success: true,
+            message: "contact modifié."
+        });
+    } catch(error) {
+        console.error("Erreur lors de la modification : ", error)
+        res.status(500).json({ success: false, message: "Erreur serveur" });
+    }
+};
