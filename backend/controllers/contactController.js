@@ -1,7 +1,21 @@
 // controllers/contactController.js
 import { connection } from '../config/db.js';
 
-// Ajouter un contact
+// READ contact
+export const getContact = async (req,res) => {
+    try {
+        const db = await connection();
+        const query = 'SELECT * FROM contacts';
+        const [result] = await db.execute(query);
+
+        res.status(200).json(result);
+    } catch (error) {
+        console.error("Erreur lors de la récupération des contacts: ", error);
+        res.status(500).json({ success: false, message: "Erreur serveur" });
+    }
+}
+
+// CREATE contact
 export const addContact = async (req, res) => {
     const { nom, prenom, email } = req.body;
 
