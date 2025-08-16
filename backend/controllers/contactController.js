@@ -13,7 +13,7 @@ export const getContact = async (req,res) => {
         console.error("Erreur lors de la récupération des contacts: ", error);
         res.status(500).json({ success: false, message: "Erreur serveur" });
     }
-}
+};
 
 // CREATE contact
 export const addContact = async (req, res) => {
@@ -36,6 +36,24 @@ export const addContact = async (req, res) => {
         });
     } catch (error) {
         console.error("Erreur lors de l'ajout :", error);
+        res.status(500).json({ success: false, message: "Erreur serveur" });
+    }
+};
+
+// DELETE contact
+export const deleteContact = async (req, res) => {
+    const id = req.params.id;
+    try {
+        const db = await connection();
+        const query = 'DELETE FROM contacts WHERE id = ?';
+        const [result] = await db.execute(query, [id]);
+
+        res.status(200).json({
+            success: true,
+            message: "contact supprimé."
+        });
+    } catch(error) {
+        console.error("Erreur lors de la suppression : ", error)
         res.status(500).json({ success: false, message: "Erreur serveur" });
     }
 };
